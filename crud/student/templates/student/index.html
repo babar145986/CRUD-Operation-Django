@@ -1,0 +1,146 @@
+{% extends 'student/main.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="card text-white bg-info text-center">
+						<h5 class="card-header">
+							Total Student
+						</h5>
+						<div class="card-footer p-4">
+							<h2> {{ total_student }} </h2>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card text-white bg-secondary text-center">
+						<h5 class="card-header">
+							BCS Students
+						</h5>
+						<div class="card-footer p-4">
+							<h2> {{ bcs_student }} </h2>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card text-white bg-secondary text-center">
+						<h5 class="card-header">
+							FSC Students
+						</h5>
+						<div class="card-footer p-4">
+							<h2> {{ fsc_student }} </h2>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card text-white bg-secondary text-center">
+						<h5 class="card-header">
+							BSC Students
+						</h5>
+						<div class="card-footer p-4">
+							<h2> {{ bsc_student }} </h2>
+						</div>
+					</div>
+				</div>
+			</div><br>
+			<div  class="container-fluid" style="width: 92%;">
+			<h3> Students Record
+				<a href="{% url 'add_student' %}">
+					<button type="" class="d-block btn btn-success float-right">
+					Add New Student
+					</button>
+				</a> 
+			</h3><hr>
+			<form action="" method="post">
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-sm-9">
+						<b> {{ myFilter.form.select_program | as_crispy_field }} </b>	
+					</div>
+					<div class="col-sm-3" style="margin-top: 31px;">
+						<button type="submit" class="btn btn-info btn-block"> Search </button>	
+					</div>
+				</div>
+			</form>
+			</div><hr>
+			<div class="container-fluid" style="width: 92%;">
+			{% if messages %}
+				{% for i in messages %}
+					<div class="alert alert-info">
+						{{ i }}
+					</div>
+				{% endfor %}
+				</div> <hr>
+			{% endif %}
+			<table class="table table-hover table-bordered table-sm ml-auto mr-auto" style="width: 90%">
+				<thead>
+					<tr>
+						<th> # </th>
+						<th> Student Name </th>
+						<th> Father Name </th>
+						<th> Phone No </th>
+						<th> Program </th>
+						<th> Action </th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for i in all_student %}
+					<tr>
+						<td style="padding-top: 10px; padding-bottom: 10px;"> {{ i.id }} </td>
+						<td style="padding-top: 10px; padding-bottom: 10px;"> {{ i.student_name }} </td>
+						<td style="padding-top: 10px; padding-bottom: 10px;"> {{ i.father_name }} </td>
+						<td style="padding-top: 10px; padding-bottom: 10px;"> {{ i.phone_no }} </td>
+						<td style="padding-top: 10px; padding-bottom: 10px;"> {{ i.select_program }} </td>
+						<th style="width: 150px; padding-top: 10px; padding-bottom: 10px;">
+						<a href="{% url 'update_student' i.id %}" title=""> 
+							<button type="" class="btn btn-outline-primary btn-sm">
+							Update
+							</button>
+						</a>
+						<a href="{% url 'delete_student' i.id %}" title="">
+							<button type="" class="btn btn-outline-danger btn-sm ml-2">
+								Delete
+							</button>
+						</a>
+						</th>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<div class="container-fluid" style="width: 92.2%">
+			<nav class="pagination-sm">
+				<ul class="pagination">
+					<li class="page-item">
+						<a class="page-link" href="#">Previous</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">1</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">2</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">3</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">4</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">5</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">Next</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

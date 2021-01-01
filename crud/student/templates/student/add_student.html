@@ -1,0 +1,51 @@
+{% extends 'student/main.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container bg-info  p-3 text-white font-weight-bold">
+	<marquee> <h2> Add / Update Student Page </h2> </marquee>
+</div><br>
+
+<div class="container" style="width: 50%">
+		<div class="col-sm-12">
+	<form action="" method="POST" style="outline: 2px solid green; outline-offset: 12px;">
+		{% csrf_token %}
+		<div class="row">
+			<div class="col-sm-4">
+				<label for="student name"> <b> STUDENT NAME </b> </label>
+			</div>
+			<div class="col-sm-8">
+				{{ student_form.student_name | as_crispy_field }}	
+			</div><br><br>
+			<div class="col-sm-4">
+				<label for="student name"> <b> FATHER NAME </b> </label>
+			</div>
+			<div class="col-sm-8">
+				{{ student_form.father_name | as_crispy_field }}	
+			</div><br><br>
+			<div class="col-sm-4">
+				<label for="student name"> <b> PHONE NO </b> </label>
+			</div>
+			<div class="col-sm-8">
+				{{ student_form.phone_no | as_crispy_field }}	
+			</div><br><br>
+			<div class="col-sm-4">
+				<label for="student name"> <b> SELECT PROGRAM </b> </label>
+			</div>
+			<div class="col-sm-8">
+				{{ student_form.select_program | as_crispy_field }}	
+			</div>
+		</div><hr>
+		<button type="submit" class="btn btn-primary float-right"> Submit </button>
+		<a href="{% url 'home' %}" class="btn btn-outline-success"> 
+		  Return Home
+		</a>
+	</form>
+</div>
+</div>
+{% endblock %}
+
+
+

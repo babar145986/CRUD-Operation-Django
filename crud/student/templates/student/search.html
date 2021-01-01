@@ -1,0 +1,76 @@
+{% extends 'student/main.html' %}
+
+{% block content %}
+
+<div class="container-fluid ml-auto mr-auto" style="width: 80%; outline: 1px solid black; outline-offset: 15px;">
+	
+<form action="" method="post">
+	{% csrf_token %}
+	<div class="row">
+		<div class="col-sm-6 form-group">
+			<label> <b> SEARCH BY STUDENT NAME </b> </label>
+			<input class="form-control" type="text" name="student_name" placeholder="Enter Student Name">
+		</div>
+		<div class="col-sm-6 form-group">
+			<label> <b> SEARCH BY FATHER NAME </b> </label>
+			<input class="form-control" type="text" name="father_name" placeholder="Enter Father Name">
+		</div>
+	</div>
+	<button type="submit" class="btn btn-primary"> Search Student </button>
+</form> <hr>
+ 
+{% if messages %}
+
+{% for k in messages %}
+
+<div class="alert alert-danger">
+	{{ k }}
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<div class="alert alert-success">
+	<h6>You Have Found <b style="font-size: 25px; color: red"> {{total_match}} </b> Records </h6>
+</div>
+
+{% endif %}
+<table class="table table-hover table-bordered table-sm ml-auto mr-auto">
+				<thead>
+					<tr>
+						<th> # </th>
+						<th> Student Name </th>
+						<th> Father Name </th>
+						<th> Phone No </th>
+						<th> Program </th>
+						<th> Action </th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for i in match %}
+					<tr>
+						<td style="padding-top: 10px; padding-bottom: 10px;"> {{ i.id }} </td>
+						<td style="padding-top: 10px; padding-bottom: 10px;"> {{ i.student_name }} </td>
+						<td style="padding-top: 10px; padding-bottom: 10px;"> {{ i.father_name }} </td>
+						<td style="padding-top: 10px; padding-bottom: 10px;"> {{ i.phone_no }} </td>
+						<td style="padding-top: 10px; padding-bottom: 10px;"> {{ i.select_program }} </td>
+						<th style="width: 150px; padding-top: 10px; padding-bottom: 10px;">
+						<a href="{% url 'update_student' i.id %}" title=""> 
+							<button type="" class="btn btn-outline-primary btn-sm">
+							Update
+							</button>
+						</a>
+						<a href="{% url 'delete_student' i.id %}" title="">
+							<button type="" class="btn btn-outline-danger btn-sm ml-2">
+								Delete
+							</button>
+						</a>
+						</th>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+</div>
+{% endblock %}
